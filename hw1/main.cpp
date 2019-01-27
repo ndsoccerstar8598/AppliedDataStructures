@@ -1,6 +1,8 @@
 /*
   Nicholas DiMaria
-  I pledge my honor that I have abided by the Stevens Honor System. 
+  I pledge my honor that I have abided by the Stevens Honor System.
+
+  CITE: 2018F CPE 593 Lecture
 */
 #include <iostream>
 using namespace std;
@@ -43,5 +45,5 @@ int main() {
         }
     }
 
-    cout << "choose(34,17)"<< "\t" <<  memo2[34][17] << '\n';
+    cout << "choose(34,17)"<< "\t" <<  memo2[0][17] << '\n';
 }

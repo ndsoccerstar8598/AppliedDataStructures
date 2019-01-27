@@ -1,5 +1,6 @@
 /*
 	Nicholas DiMaria
+	I pledge my honor that I have abided by the Stevens Honor System.
 */
 
 #include <iostream>
@@ -27,7 +28,7 @@ int main() {
 					choose(n,r);
 			}
 	}
-	
+
   int numTrials = 100000000;
 	//  cin >> numTrials;
 	default_random_engine generator;
