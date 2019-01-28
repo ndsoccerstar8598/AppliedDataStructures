@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-double numPrime(int n){
+int numPrime(int n){
     bool sieve[n+1];
     for(int i =2; i<=n; i++){
       //intializes array to all true

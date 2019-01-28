@@ -19,6 +19,10 @@ double choose(int n, int r){
         return 1;
     else if(n==r)
         return 1;
+    //this should allow it to only store half of the numbers due to symmetry
+    else if(n/r < 2.0 && memo[n][n-r]!=0){
+        return memo[n][n-r];
+    }
     else if (memo[n][r]!=0)
         return memo[n][r];
     else
