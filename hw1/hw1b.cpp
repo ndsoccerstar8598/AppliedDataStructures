@@ -8,11 +8,17 @@
 using namespace std;
 
 double choose(int n, int r) {
-	static double memo[500][500] = {0};
+	static double memo[501][501] = {0};
     if (r==0)
         return 1;
     else if(n==r)
         return 1;
+    else if(r==1)
+        return n;
+    //this should allow it to only store half of the numbers due to symmetry
+    else if(n/r < 2.0 && memo[n][n-r]!=0){
+        return memo[n][n-r];
+   	}
     else if (memo[n][r]!=0)
         return memo[n][r];
     else
@@ -20,7 +26,7 @@ double choose(int n, int r) {
 }
 
 int main() {
-
+	cout << "hello" << endl;
 	int n=0;
 	int r=0;
 	for(n=0; n<=500;n++){
@@ -29,6 +35,7 @@ int main() {
 			}
 	}
 
+	cout << "hello2" << endl;
   int numTrials = 100000000;
 	//  cin >> numTrials;
 	default_random_engine generator;

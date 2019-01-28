@@ -26,12 +26,12 @@ double choose(int n, int r){
         return 1;
     else if(n==r)
         return 1;
-    else if(r==1 || r==n-1)
+    else if(r==1)
         return n;
     //this should allow it to only store half of the numbers due to symmetry
     else if(n/r < 2.0 && memo[n][n-r]!=0){
         return memo[n][n-r];
-    }
+   	}
     else if (memo[n][r]!=0)
         return memo[n][r];
     else
@@ -54,14 +54,14 @@ int main() {
         }
     }
 
-    int chooseN = 0;
-    int chooseR = 0;
+    int chooseN = 100;
+    int chooseR = 51;
 
-    cout << "What number would you like N to be: ";
-    cin >> chooseN;
+    //cout << "What number would you like N to be: ";
+    //cin >> chooseN;
 
-    cout << "What number would you like R to be: ";
-    cin >> chooseR;
+    //cout << "What number would you like R to be: ";
+    //cin >> chooseR;
 
     cout << "This is what is actually stored in the array " << memo[chooseN][chooseR] << endl;
     cout << "This is what is spit out choose(" << chooseN << "," << chooseR << ")" << "\t" <<  choose(chooseN,chooseR) << '\n';
