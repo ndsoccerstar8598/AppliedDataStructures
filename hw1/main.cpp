@@ -24,14 +24,15 @@ double choose(int n, int r){
 
     if (r==0)
         return 1;
+    else if (n==0)
+        return 0;
     else if(n==r)
         return 1;
     else if(r==1 || r==n-1)
         return n;
     //this should allow it to only store half of the numbers due to symmetry
-    else if(n/r < 2.0 && memo[n][n-r]!=0){
+    else if(n/r < 2.0 && memo[n][n-r]!=0)
         return memo[n][n-r];
-    }
     else if (memo[n][r]!=0)
         return memo[n][r];
     else
