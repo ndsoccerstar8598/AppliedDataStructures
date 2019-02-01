@@ -28,7 +28,7 @@ double choose(int n, int r){
         return 0;
     else if(n==r)
         return 1;
-    else if(r==1 || r==n-1)
+    else if(r==1)
         return n;
     //this should allow it to only store half of the numbers due to symmetry
     else if(n/r < 2.0 && memo[n][n-r]!=0)
@@ -55,9 +55,7 @@ int main() {
         }
     }
 
-    int chooseN = 0;
-    int chooseR = 0;
-
+    int chooseN, chooseR;
     cout << "What number would you like N to be: ";
     cin >> chooseN;
 

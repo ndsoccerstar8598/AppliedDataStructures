@@ -30,6 +30,7 @@ double choose(int n, int r){
 }
 
 int main() {
+    	
 	int testCases[][3] = {
 		{0, 0, 1},
 
