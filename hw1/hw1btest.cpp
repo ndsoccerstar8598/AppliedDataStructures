@@ -13,8 +13,11 @@ using namespace std;
       1   6   15  20  15  6   1
  */
 // make your code work here
+
+static double** memo = new double*[501];
+
 double choose(int n, int r){
-    static double memo[501][501] = {0};
+
     if (r==0)
         return 1;
     else if(n==r)
@@ -30,6 +33,10 @@ double choose(int n, int r){
 }
 
 int main() {
+
+  for (int i = 0; i < 500; i++){
+      memo[i] = new double[i+1];
+  }
 	int testCases[][3] = {
 		{0, 0, 1},
 
@@ -54,7 +61,7 @@ int main() {
 		int result = testCases[i][2];
 
 		if (choose(n, r) != result) {
-			cerr << "Failed test case: choose(" << n << ", " << r << ") = " << result << '\n';
+			cerr << "Failed test case: choose(" << n << ", " << r << ") = " << result <<`` '\t'<< choose(n,r) << '\n';
 		}
 	}
 
