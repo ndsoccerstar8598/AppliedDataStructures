@@ -34,15 +34,11 @@ double choose(int n, int r){
 
 int main() {
 
-  for (int i = 0; i < 500; i++){
-      memo[i] = new double[i+1];
-  }
 	int testCases[][3] = {
 		{0, 0, 1},
 
 		{1, 0, 1},
 		{1, 1, 1},
-
 		{2, 0, 1},
 		{2, 1, 2},
 		{2, 2, 1},

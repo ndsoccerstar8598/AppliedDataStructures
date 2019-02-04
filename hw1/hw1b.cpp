@@ -26,7 +26,7 @@ double choose(int n, int r) {
 }
 
 int main() {
-	cout << "hello" << endl;
+	
 	int n=0;
 	int r=0;
 	for(n=0; n<=500;n++){
@@ -35,7 +35,7 @@ int main() {
 			}
 	}
 
-	cout << "hello2" << endl;
+	
   int numTrials = 100000000;
 	//  cin >> numTrials;
 	default_random_engine generator;
