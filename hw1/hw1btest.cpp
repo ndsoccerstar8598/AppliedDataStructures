@@ -57,7 +57,7 @@ int main() {
 		int result = testCases[i][2];
 
 		if (choose(n, r) != result) {
-			cerr << "Failed test case: choose(" << n << ", " << r << ") = " << result <<`` '\t'<< choose(n,r) << '\n';
+			cout << "Failed test case: choose(" << n << ", " << r << ") = " << result << '\t'<< choose(n,r) << '\n';
 		}
 	}
 
