@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int* sort(int x[], int n){}
+int* sort(int x[], int n){
     int *a = new int[n];
 
     for (int i=0; i<=n; i++){
