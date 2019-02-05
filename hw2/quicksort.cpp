@@ -4,53 +4,44 @@
 
 using namespace std;
 
-int* quicksort (int x[], int L, int R){
-      srand (time(NULL));
+void quicksort (int x[], int l, int r){
+    srand (time(NULL));
 
-      int *a = new int[R+1];
+    int i=l;
+    int j=r;
 
-      for (int i=0; i<=R; i++){
-          a[i] = x[i];
-      }
-
-      int *L = new int[(R+1)/2];
-      int *R = new int[(R+1)/2];
-
-      int num = a[rand() % R + 1];
-
-      int i = L;
-      int j = R;
-      int lCount = 0;
-      int rCount =0;
-
-      while(i<j){
-          if(x[i] < num){
-              L[lCount] = x[i];
-              lCount++;
-              i++;
-          }
-          else{
-              R[rCount] = x[i];
-              rCount++;
-              i++;
-          }
-          if(x[j] < num){
-              L[lCount] = x[i];
-              lCount++;
-              i++;
-          }
-          else{
-              R[rCount] = x[i];
-              rCount++;
-              i++;
-          }
-
-      }
+    int pivot =x[(rand() % (r-l))+l];
+    while(i<=j){
+        while(x[i]<pivot)
+            i++;
+        while(x[j]>pivot)
+            j--;
+        if(i<=j){
+            int temp = x[i];
+            x[i] = x[j];
+            x[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    if(l <j)
+        quicksort(x,l,j);
+    if(r >i)
+        quicksort(x,i,r);
+    return;
 
 }
 
 int main(){
 
-      int x[8] = {0};
+    static int x[5];
+    x[0]=1;
+    x[1]=2;
+    x[2]=2;
+    x[3]=2;
+    x[4]=5;
 
+    quicksort(x,0,4);
+    for (int i =0; i < 5; i++)
+        cout << x[i] <<endl;
 }
