@@ -1,3 +1,16 @@
+/*
+    Nicholas DiMaria
+    I pledge my honor that I have abided by the Stevens Honor System.
+
+    People I worked with:
+    Max Parisi: Helped me come up with the idea for having a static array
+    Besnik Balaj: Consulted about some logic as well as the rand()
+    http://www.cplusplus.com/forum/beginner/18457/: adding the if statments with
+    i<=j, l<j, and r>i came from this website. I was getting errors of being off
+    by one or going out of the bounds of the array and this helped fixed those
+    problems. 
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
@@ -29,7 +42,6 @@ void quicksort (int x[], int l, int r){
     if(r >i)
         quicksort(x,i,r);
     return;
-
 }
 
 int main(){
