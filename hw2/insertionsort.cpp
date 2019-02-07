@@ -1,6 +1,12 @@
 /*
     Nicholas DiMaria
     I pledge my honor that I have abided by the Stevens Honor System
+
+    Citations:
+    --Max Parisi: Helped me come up with the idea for having a static array
+    --Besnik Balaj: Consulted about the rand() function as well as reading in files
+    --https://www.uow.edu.au/~lukes/TEXTBOOK/notes-cpp/io/readtextfile.html:
+    This website also helped me with reading in files
 */
 
 #include <iostream>
@@ -8,32 +14,27 @@
 
 using namespace std;
 
-int* sort(int x[], int n){
-    int *a = new int[n];
+void sort(int x[], int n){
 
-    for (int i=0; i<=n; i++){
-        a[i] = x[i];
-    }
-
-    for(int i=1; i<=n; i++){
-        if(a[i]<a[i-1]){
-            int temp = a[i];
+    for(int i=1; i<n; i++){
+        if(x[i]<x[i-1]){
+            int temp = x[i];
             for(int j=i-1;j>=0;j--){
-                if (temp <a[j] && j !=0){
-                    a[j+1]=a[j];
+                if (temp <x[j] && j !=0){
+                    x[j+1]=x[j];
                 }
-                else if (temp < a[j]){
-                    a[j+1]=a[j];
-                    a[j] = temp;
+                else if (temp < x[j]){
+                    x[j+1]=x[j];
+                    x[j] = temp;
                 }
                 else{
-                    a[j+1]=temp;
+                    x[j+1]=temp;
                     break;
                 }
             }
         }
     }
-    return a;
+    return;
 }
 
 int main(){
@@ -47,19 +48,17 @@ int main(){
     }
 
     infile >> length;
-    cout << length << endl;
-    cout << endl;
 
-    int* hello = new int[length];
+    static int* hello = new int[length];
     int count=0;
 
     while(infile >> hello[count]){
         count++;
     }
+    infile.close();
 
-    int* arr = new int[length];
-    arr = sort(hello,length);
+    sort(hello,length);
     for(int i = 0; i < length; i++){
-        cout << arr[i] << endl;
+        cout << hello[i] << endl;
     }
 }

@@ -2,18 +2,21 @@
     Nicholas DiMaria
     I pledge my honor that I have abided by the Stevens Honor System.
 
-    People I worked with:
-    Max Parisi: Helped me come up with the idea for having a static array
-    Besnik Balaj: Consulted about some logic as well as the rand()
-    http://www.cplusplus.com/forum/beginner/18457/: adding the if statments with
+    Citations
+    --Max Parisi: Helped me come up with the idea for having a static array
+    --Besnik Balaj: Consulted about the rand() function as well as reading in files
+    --http://www.cplusplus.com/forum/beginner/18457/: adding the if statments with
     i<=j, l<j, and r>i came from this website. I was getting errors of being off
     by one or going out of the bounds of the array and this helped fixed those
-    problems. 
+    problems.
+    --https://www.uow.edu.au/~lukes/TEXTBOOK/notes-cpp/io/readtextfile.html:
+    This website also helped me with reading in files
 */
 
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
+#include <fstream>
 
 using namespace std;
 
@@ -46,14 +49,26 @@ void quicksort (int x[], int l, int r){
 
 int main(){
 
-    static int x[5];
-    x[0]=1;
-    x[1]=2;
-    x[2]=2;
-    x[3]=2;
-    x[4]=5;
+    fstream infile;
+    int length =0;
 
-    quicksort(x,0,4);
-    for (int i =0; i < 5; i++)
-        cout << x[i] <<endl;
+    infile.open("hw3.dat");
+    if (!infile) {
+        cout << "Unable to open file";
+        exit(1); // terminate with error
+    }
+
+    infile >> length;
+
+    static int* hello = new int[length];
+    int count=0;
+
+    while(infile >> hello[count]){
+        count++;
+    }
+    infile.close();
+    
+    quicksort(hello,0,length-1);
+    for (int i =0; i < length; i++)
+        cout << hello[i] <<endl;
 }
