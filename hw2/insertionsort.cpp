@@ -1,4 +1,10 @@
+/*
+    Nicholas DiMaria
+    I pledge my honor that I have abided by the Stevens Honor System
+*/
+
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -31,22 +37,29 @@ int* sort(int x[], int n){
 }
 
 int main(){
-    int length = 10;
-    int hello[length];
-    hello[0]=10;
-    hello[1]=9;
-    hello[2]=8;
-    hello[3]=7;
-    hello[4]=2;
-    hello[5]=2;
-    hello[6]=2;
-    hello[7]=2;
-    hello[8]=2;
-    hello[9]=2;
+    ifstream infile;
+    int length =0;
+
+    infile.open("hw3.dat");
+    if (!infile) {
+        cout << "Unable to open file";
+        exit(1); // terminate with error
+    }
+
+    infile >> length;
+    cout << length << endl;
+    cout << endl;
+
+    int* hello = new int[length];
+    int count=0;
+
+    while(infile >> hello[count]){
+        count++;
+    }
 
     int* arr = new int[length];
     arr = sort(hello,length);
     for(int i = 0; i < length; i++){
-      cout << arr[i] << endl;
+        cout << arr[i] << endl;
     }
 }
