@@ -13,8 +13,8 @@ int* quicksort (int x[], int L, int R){
           a[i] = x[i];
       }
 
-      int *L = new int[(R+1)/2];
-      int *R = new int[(R+1)/2];
+      int *L = new int[(R+1)];
+      int *R = new int[(R+1)];
 
       int num = a[rand() % R + 1];
 
@@ -44,9 +44,7 @@ int* quicksort (int x[], int L, int R){
               rCount++;
               i++;
           }
-
       }
-
 }
 
 int main(){
