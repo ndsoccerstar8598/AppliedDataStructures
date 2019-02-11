@@ -20,49 +20,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-int* quicksort (int x[], int L, int R){
-      srand (time(NULL));
-
-      int *a = new int[R+1];
-
-      for (int i=0; i<=R; i++){
-          a[i] = x[i];
-      }
-
-      int *L = new int[(R+1)];
-      int *R = new int[(R+1)];
-
-      int num = a[rand() % R + 1];
-
-      int i = L;
-      int j = R;
-      int lCount = 0;
-      int rCount =0;
-
-      while(i<j){
-          if(x[i] < num){
-              L[lCount] = x[i];
-              lCount++;
-              i++;
-          }
-          else{
-              R[rCount] = x[i];
-              rCount++;
-              i++;
-          }
-          if(x[j] < num){
-              L[lCount] = x[i];
-              lCount++;
-              i++;
-          }
-          else{
-              R[rCount] = x[i];
-              rCount++;
-              i++;
-          }
-      }
-=======
 void quicksort (int x[], int l, int r){
     srand (time(NULL));
 
@@ -88,7 +45,7 @@ void quicksort (int x[], int l, int r){
     if(r >i)
         quicksort(x,i,r);
     return;
->>>>>>> 8b186d0fa8d6d1918fa25e0feafc7e4444f2db7d
+
 }
 
 int main(){
@@ -111,7 +68,7 @@ int main(){
         count++;
     }
     infile.close();
-    
+
     quicksort(hello,0,length-1);
     for (int i =0; i < length; i++)
         cout << hello[i] <<endl;
