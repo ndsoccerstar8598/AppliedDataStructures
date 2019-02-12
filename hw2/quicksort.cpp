@@ -18,52 +18,7 @@
 #include <time.h>
 #include <fstream>
 
-using namespace std;
-
-<<<<<<< HEAD
-int* quicksort (int x[], int L, int R){
-      srand (time(NULL));
-
-      int *a = new int[R+1];
-
-      for (int i=0; i<=R; i++){
-          a[i] = x[i];
-      }
-
-      int *L = new int[(R+1)];
-      int *R = new int[(R+1)];
-
-      int num = a[rand() % R + 1];
-
-      int i = L;
-      int j = R;
-      int lCount = 0;
-      int rCount =0;
-
-      while(i<j){
-          if(x[i] < num){
-              L[lCount] = x[i];
-              lCount++;
-              i++;
-          }
-          else{
-              R[rCount] = x[i];
-              rCount++;
-              i++;
-          }
-          if(x[j] < num){
-              L[lCount] = x[i];
-              lCount++;
-              i++;
-          }
-          else{
-              R[rCount] = x[i];
-              rCount++;
-              i++;
-          }
-      }
-=======
-void quicksort (int x[], int l, int r){
+  void quicksort (int x[], int l, int r){
     srand (time(NULL));
 
     int i=l;
@@ -71,17 +26,19 @@ void quicksort (int x[], int l, int r){
 
     int pivot =x[(rand() % (r-l))+l];
     while(i<=j){
-        while(x[i]<pivot)
-            i++;
-        while(x[j]>pivot)
-            j--;
-        if(i<=j){
-            int temp = x[i];
-            x[i] = x[j];
-            x[j] = temp;
-            i++;
-            j--;
-        }
+      while(x[i]<pivot)
+      i++;
+      while(x[j]>pivot)
+      j--;
+      if(i<=j){
+        int temp = x[i];
+        x[i] = x[j];
+        x[j] = temp;
+        i++;
+        j--;
+      }
+using namespace std;
+
     }
     if(l <j)
         quicksort(x,l,j);
@@ -111,7 +68,7 @@ int main(){
         count++;
     }
     infile.close();
-    
+
     quicksort(hello,0,length-1);
     for (int i =0; i < length; i++)
         cout << hello[i] <<endl;
