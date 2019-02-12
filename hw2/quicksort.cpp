@@ -17,8 +17,9 @@
 #include <cstdlib>
 #include <time.h>
 #include <fstream>
+using namespace std;
 
-  void quicksort (int x[], int l, int r){
+void quicksort (int x[], int l, int r){
     srand (time(NULL));
 
     int i=l;
@@ -45,7 +46,7 @@ using namespace std;
     if(r >i)
         quicksort(x,i,r);
     return;
->>>>>>> 8b186d0fa8d6d1918fa25e0feafc7e4444f2db7d
+
 }
 
 int main(){
