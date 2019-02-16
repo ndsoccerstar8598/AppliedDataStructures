@@ -17,7 +17,6 @@
 #include <cstdlib>
 #include <time.h>
 #include <fstream>
-
 using namespace std;
 
 void quicksort (int x[], int l, int r){
@@ -28,17 +27,19 @@ void quicksort (int x[], int l, int r){
 
     int pivot =x[(rand() % (r-l))+l];
     while(i<=j){
-        while(x[i]<pivot)
-            i++;
-        while(x[j]>pivot)
-            j--;
-        if(i<=j){
-            int temp = x[i];
-            x[i] = x[j];
-            x[j] = temp;
-            i++;
-            j--;
-        }
+      while(x[i]<pivot)
+      i++;
+      while(x[j]>pivot)
+      j--;
+      if(i<=j){
+        int temp = x[i];
+        x[i] = x[j];
+        x[j] = temp;
+        i++;
+        j--;
+      }
+using namespace std;
+
     }
     if(l <j)
         quicksort(x,l,j);
