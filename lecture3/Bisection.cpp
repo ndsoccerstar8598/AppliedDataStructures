@@ -13,7 +13,7 @@ double bisection(FuncOneVar f, double a, double b, double eps){
     double ya = f(a);
     double yb = f(b);
     if (ya * yb > 0)
-        throw "Error! The function does not apper to cross zero here!\n";
+        throw "Error! The function does not appear to cross zero here!\n";
     double mid;
     do{
         mid = (a+b)/2;

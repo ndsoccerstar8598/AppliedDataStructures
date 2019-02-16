@@ -34,6 +34,6 @@ int goldenMeanSearch(int data[], int n){
 
 int main(){
     const int n=20;
-    int data[n] = {0,0,0,1,5,6,8,9,10,20,6,5,4,3,2,1,0,0,0,0};
+    int data[n] = {0,0,0,1,5,6,8,9,20,19,10,5,4,3,2,1,0,0,0,0};
     cout << goldenMeanSearch(data,n) << '\n';
 }
