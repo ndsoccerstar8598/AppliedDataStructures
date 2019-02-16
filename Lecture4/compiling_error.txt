@@ -1,0 +1,7 @@
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture4\fermat.cpp: In function 'bool MillerRabin(uint64_t, int)':
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture4\fermat.cpp:53:14: error: 'n' was not declared in this scope
+       if(x== n-1)
+              ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture4\fermat.cpp:58:3: error: expected primary-expression before '}' token
+   }
+   ^
