@@ -11,7 +11,7 @@ int goldenMeanSearch(int data[], int n){
     int x = r-s, y =l+s;
 
     while (x<y){
-        if(data[x] >data[y]){
+        if(data[x] < data[y]){
             r=y;
             y=x;
             s=(r-l)/phi;
@@ -24,9 +24,9 @@ int goldenMeanSearch(int data[], int n){
             y = l + s;
         }
     }
-    if(data[x]<data[x+1])
+    if(data[x] > data[x+1])
         return x+1;
-    else if(data[x-1]>data[x])
+    else if(data[x-1] <data[x])
         return x-1;
     else
         return x;
@@ -34,6 +34,6 @@ int goldenMeanSearch(int data[], int n){
 
 int main(){
     const int n=20;
-    int data[n] = {0,0,0,1,5,6,8,9,20,19,10,5,4,3,2,1,0,0,0,0};
+    int data[n] = {20,19,18,17,15,16,8,7,0,1,2,5,14,13,12,13,20,21,22,23};
     cout << goldenMeanSearch(data,n) << '\n';
 }
