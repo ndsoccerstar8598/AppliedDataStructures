@@ -5,7 +5,7 @@ using namespace std;
 
 const double phi = (sqrt(5)+1)/2;
 
-int goldenMeanSearch(int data[], int n){
+int goldenMeanSearch(double data[], int n){
     int l=0, r =n-1;
     int s = (r-l) / phi;
     int x = r-s, y =l+s;
@@ -33,7 +33,7 @@ int goldenMeanSearch(int data[], int n){
 }
 
 int main(){
-    const int n=20;
-    int data[n] = {20,19,18,17,15,16,8,7,0,1,2,5,14,13,12,13,20,21,22,23};
+    const int n=10;
+    double data[n] = {20.0009,20.0009,20.0008,20.0007,20.0006,20.0005,20.0006,20.0007,20.0008,20.0009};
     cout << goldenMeanSearch(data,n) << '\n';
 }

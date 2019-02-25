@@ -6,17 +6,23 @@
 #include <chrono>
 #include <time.h>
 #include <math.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+#include <direct.h>
+#include <windows.h>
 
 using namespace std;
 using namespace std::chrono;
 
 void partialQuicksort(int x[], int l, int r, int k) {
+
   srand (time(NULL));
 
   int i=l;
   int j=r;
 
-  int pivot = x[r];
+  int pivot = x[(r+l)/2];
   //[(rand() % (r-l))+l];
   while(i<=j){
     while(x[i]<pivot)
@@ -39,7 +45,6 @@ void partialQuicksort(int x[], int l, int r, int k) {
 }
 
 void insertionSort(int x[], int n){
-
   for(int i=1; i<n; i++){
     if(x[i]<x[i-1]){
       int temp = x[i];
@@ -71,6 +76,7 @@ void knuthQuicksort(int x[], int n, int k){
   //k =2 quicksort, k =10000 insertion sort is doing too much
   // use goldenMeanSearch in between 200 and 300
   insertionSort(x,n);
+  return;
 }
 
 const double phi = (sqrt(5)+1)/2;
@@ -117,8 +123,14 @@ int goldenMeanSearch(double data[], int n){
 int main(){
   fstream infile;
   int length =0;
-  clock_t t;
+  clock_t begin, end;
+  LARGE_INTEGER frequency;
+  LARGE_INTEGER t1,t2;
+  double elapsedTime;
 
+  QueryPerformanceFrequency(&frequency);
+
+  double time_spent;
   infile.open("numbers.txt");
   if (!infile) {
       cout << "Unable to open file";
@@ -133,23 +145,37 @@ int main(){
   while(infile >> hello[count]){
       count++;
   }
-  infile.close();
 
-  double times[100] = {0};
+  infile.close();
+  int count2 =0;
+  double times[10000] = {0};
   ofstream myfile;
+
   myfile.open ("times.txt");
-  for(int i=0; i<100;i++){
-    auto start = high_resolution_clock::now();
+  for(int i=0; i<1000000; i+=100){
+
+    cout << "Time taken by function: " << knuthQuicksort(hello,length,i) << endl;
+    //high_resolution_clock::time_point start = high_resolution_clock::now();
+    QueryPerformanceCounter(&t1);
     knuthQuicksort(hello,length,i);
-    //cin.ignore();
-    auto stop = high_resolution_clock::now();
-    std::chrono::duration<double> elapsed= (stop - start);
-    cout << "Time taken by function: " << elapsed.count() << endl;
-    times[i] = elapsed.count();
+    QueryPerformanceCounter(&t2);
+
+    //high_resolution_clock::time_point stop = high_resolution_clock::now();
+    //duration<double> elapsed = duration_cast<duration<double>>(stop - start);
+    //cout << "Time taken by function: " << elapsed.count() << endl;
+    //end = clock();
+    //time_spent = (double)(end-begin)/CLOCKS_PER_SEC;
+    //myfile << "Time taken by function: " << time_spent << endl;
+    //times[count2] = elapsed.count();
+    elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
+    cout << "Time taken by function: " << elapsedTime << endl;
+    //times[count2] = elapsedTime;
+    times[count2] = time_spent;
+    count2 ++;
   }
 
-  cout << "Finished calculating, now I am going to check which is the best one " << endl;
-  cout << goldenMeanSearch(times,100);
+  cout << "Now im going to check which of these is the best" << endl;
+  cout << goldenMeanSearch(times,10000);
 
   //float seconds = (float)t / CLOCKS_PER_SEC;
 
