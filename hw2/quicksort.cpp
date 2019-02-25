@@ -38,8 +38,6 @@ void quicksort (int x[], int l, int r){
         i++;
         j--;
       }
-using namespace std;
-
     }
     if(l <j)
         quicksort(x,l,j);
