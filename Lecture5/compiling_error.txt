@@ -1,0 +1,54 @@
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:18:17: error: expected unqualified-id before ')' token
+    LinkList2019() {
+                 ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:70:48: error: 'LinkedList' does not name a type
+  friend ostream& operator <<(ostream& s, const LinkedList& list){//always make this const
+                                                ^~~~~~~~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:78:10: error: 'String' has not been declared
+ int main(String[] args) {
+          ^~~~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:78:19: error: expected ',' or '...' before 'args'
+ int main(String[] args) {
+                   ^~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:88:1: error: expected '}' at end of input
+ }
+ ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc: In member function 'void LinkList2019<T>::Node::insert(int, int)':
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:46:17: error: expected primary-expression before 'temp'
+   p->next =Node temp = new Node(v,p->next);
+                 ^~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:46:17: error: expected ';' before 'temp'
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc: In member function 'int LinkList2019<T>::Node::removeEnd()':
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:64:35: error: expected ')' before ';' token
+   for (; q->next != nullptr; p = q; q = q->next){
+                                   ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:64:48: error: expected ';' before ')' token
+   for (; q->next != nullptr; p = q; q = q->next){
+                                                ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc: In function 'std::ostream& operator<<(std::ostream&, const int&)':
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:71:23: error: request for member 'head' in 'list', which is of non-class type 'const int'
+   for (Node* p = list.head; p!=nullptr ;p = p->next){
+                       ^~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:72:11: error: 'value' was not declared in this scope
+    s << p-value << ' ';
+           ^~~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc: In member function 'int LinkList2019<T>::main(int*)':
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:79:2: error: 'LinkedList' was not declared in this scope
+  LinkedList<int> a;
+  ^~~~~~~~~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:79:13: error: expected primary-expression before 'int'
+  LinkedList<int> a;
+             ^~~
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:81:3: error: 'a' was not declared in this scope
+   a.addStart(i);
+   ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:83:3: error: 'a' was not declared in this scope
+   a.addEnd(i);
+   ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:84:2: error: 'a' was not declared in this scope
+  a.removeStat();
+  ^
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc: At global scope:
+D:\Users\ndsoc\Documents\Junior Year\AppliedDataStructures\Lecture5\LinkedListC++.cc:88:1: error: expected ';' at end of input
+ }
+ ^

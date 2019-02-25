@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-const double phi = (sqrt(5)+1)/2;
+const double phi = (sqrt(5)+1)/2; //made this a double instead of an int
 
 int goldenMeanSearch(int data[], int n){
     int l=0, r =n-1;
@@ -20,10 +20,13 @@ int goldenMeanSearch(int data[], int n){
         else {
             l = x;
             x = y;
-            s = ceil((r - l) / phi);
+            s = ceil((r - l) / phi); //made this a ceiling funciton
             y = l + s;
         }
     }
+    //I added these if statements to make sure we are returing the correct index
+    //This fixes any of the problems that may occur if the loop breaks out earlier
+    //due to rounding issues of s
     if(data[x]<data[x+1])
         return x+1;
     else if(data[x-1]>data[x])
