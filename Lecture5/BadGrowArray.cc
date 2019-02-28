@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 class BadGrowArray{
 private:
   int size;
@@ -45,7 +48,7 @@ public:
   void removeEnd(){//O(1)
     size--;
   }
-  friend ostream& operatror <<(ostream& s, const BadGrowArray& b){ //O(n)
+  friend ostream& operator <<(ostream& s, const BadGrowArray& b){ //O(n)
     for(int i=0; i < b.size; i++)
       s << b.p[i] << ' ';
     return s;

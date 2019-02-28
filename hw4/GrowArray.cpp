@@ -1,11 +1,38 @@
 #include <iostream>
 #include <fstream>
-#include <tuple>
 using namespace std;
+
+// Class to represent points.
+class Point {
+private:
+  double xval, yval;
+public:
+  // Constructor uses default arguments to allow calling with zero, one,
+  // or two values.
+  Point(double x = 0.0, double y = 0.0) {
+          xval = x;
+          yval = y;
+  }
+
+  // Extractors.
+  double x() { return xval; }
+  double y() { return yval; }
+
+	void move(double a, double b)
+	{
+				 xval = a;
+				 yval = b;
+ 	}
+
+  friend ostream& operator <<(ostream& s, const Point& b){ //O(n)
+    s << '(' << b.xval << ',' << b.yval << ')' ;
+    return s;
+  }
+};
 
 class GrowArray {
 	private:
-		int* data;
+		Point* data;
 		uint32_t len;
 		uint32_t capacity; //this is a thing for homework
 		//void grow() {
@@ -15,11 +42,11 @@ class GrowArray {
 		//}
 	public:
 		GrowArray():data(nullptr),len(0){}
-		void addEnd(int v) {//O(len) which is pretty bad since complexity will yeet this out of window
+		void addEnd(Point v) {//O(len) which is pretty bad since complexity will yeet this out of window
 			//if (len >= capacity)
 				//grow();
-			int* old = data; //O(1)
-			data = new int[len+1]; //O(1) in C++ but Java is O(n)
+			Point* old = data; //O(1)
+			data = new Point[len+1]; //O(1) in C++ but Java is O(n)
 			for(int i = 0; i<len;i++){ //O(len) but Java is O(2len)
 				data[i] = old[i];
 			}
@@ -30,8 +57,8 @@ class GrowArray {
 		}
 
 		void addStart(int v) { //O(len)
-			int* old = data;
-			data = new int[len+1];
+			Point* old = data;
+			data = new Point[len+1];
 			data[0] = v;
 			for (int i =1; i <= len; i++){
 				data[i] = old[i-1];
@@ -41,8 +68,8 @@ class GrowArray {
 		}
 
 		void removeEnd(){
-			int* old = data;
-			data = new int[--len];
+			Point* old = data;
+			data = new Point[--len];
 			for(int i = 0; i< len; i++)
 				data[i] = old[i];
 			delete [] old;
@@ -53,8 +80,8 @@ class GrowArray {
 		}
 
 		void removeStart() { //O(n)
-			int* old = data;
-			data = new int[--len];
+			Point* old = data;
+			data = new Point[--len];
 			for(int i = 0; i< len; i++)
 				data[i] = old[i+1];
 			delete [] old;
@@ -63,8 +90,12 @@ class GrowArray {
 		uint32_t size() const {
 			return len;
 		}
+    friend ostream& operator <<(ostream& s, const GrowArray& b){ //O(n)
+      for(int i=0; i < b.size(); i++)
+        s << b.data[i] << ' ';
+      return s;
+    }
 };
-
 
 int main() {
 	GrowArray a;
@@ -133,6 +164,12 @@ int main() {
 		}
 	}
 
+	Point points[length];
+
+	for (int i =0; i < length; i++){
+		points[i].move(xValue[i], yValue[i]);
+	}
+
   infile.close();
 
 	double Xperbox = (double)(15)/(maxX-minX);
@@ -145,8 +182,9 @@ int main() {
 	for(int q=0;q<length; q++){
 		i = (yValue[q]-minY)*Yperbox;
 		j = (xValue[q]-minX)*Xperbox;
-		box[i][j].addEnd(xValue[q]);
-		box[i][j].addEnd(yValue[q]);
+		box[i][j].addEnd(points[q]);
+		cout << box[i][j] << endl;
 	}
+
 
 }
