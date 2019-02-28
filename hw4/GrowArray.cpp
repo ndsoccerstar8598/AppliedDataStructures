@@ -18,12 +18,15 @@ public:
   double x() { return xval; }
   double y() { return yval; }
 
+	//this will allow us to reset the values after they are initialized
 	void move(double a, double b)
 	{
 				 xval = a;
 				 yval = b;
  	}
 
+	//this allows us to use cout << point
+	//this was from 2018F lecutre
   friend ostream& operator <<(ostream& s, const Point& b){ //O(n)
     s << '(' << b.xval << ',' << b.yval << ')' ;
     return s;
@@ -32,6 +35,8 @@ public:
 
 class GrowArray {
 	private:
+		//we now need to make data an array of Points rather than ints
+		//this need to the same throughout all of grow array
 		Point* data;
 		uint32_t len;
 		uint32_t capacity; //this is a thing for homework
@@ -42,16 +47,16 @@ class GrowArray {
 		//}
 	public:
 		GrowArray():data(nullptr),len(0){}
-		void addEnd(Point v) {//O(len) which is pretty bad since complexity will yeet this out of window
+		void addEnd(Point v) {//O(len) 
 			//if (len >= capacity)
 				//grow();
 			Point* old = data; //O(1)
-			data = new Point[len+1]; //O(1) in C++ but Java is O(n)
-			for(int i = 0; i<len;i++){ //O(len) but Java is O(2len)
+			data = new Point[len+1]; //O(1)
+			for(int i = 0; i<len;i++){ //O(len) 
 				data[i] = old[i];
 			}
-			//bottom portion frees old memory which is O(1)
-			delete [] old; //this will be required for exams since Java does it for you and C++ needs it
+	
+			delete [] old;
 			data[len] = v;
 			len++;
 		}
@@ -90,6 +95,8 @@ class GrowArray {
 		uint32_t size() const {
 			return len;
 		}
+		
+		//same as before this allows us to use cout << GrowArray object
     friend ostream& operator <<(ostream& s, const GrowArray& b){ //O(n)
       for(int i=0; i < b.size(); i++)
         s << b.data[i] << ' ';
@@ -98,8 +105,7 @@ class GrowArray {
 };
 
 int main() {
-	GrowArray a;
-	a.addEnd(5);
+
 	ifstream infile;
 
   infile.open("convexhullpoints.dat");
@@ -164,21 +170,31 @@ int main() {
 		}
 	}
 
+	//create an array of points with the same amount of points we have in the file
 	Point points[length];
 
+	//here we are initializing the points to the correct x and y values 
+	//this uses that move function we talked about before
+	//really more of setter 
 	for (int i =0; i < length; i++){
 		points[i].move(xValue[i], yValue[i]);
 	}
 
   infile.close();
-
+	
+	//calculate the appropriate X and Y perbox
 	double Xperbox = (double)(15)/(maxX-minX);
 	double Yperbox = (double)(15)/(maxY-minY);
 
+	//here a 16x16 array of grow arrays is created 
 	GrowArray box[16][16];
 	int i,j;
 	i=j=0;
 
+	//now we loop through all the points
+	//we calculate the appropriate i and j values
+	//then we add the point to the appropriate grow array at cell (i,j)
+	//then to check we are going to print out what is at the cell (i,j)
 	for(int q=0;q<length; q++){
 		i = (yValue[q]-minY)*Yperbox;
 		j = (xValue[q]-minX)*Xperbox;
