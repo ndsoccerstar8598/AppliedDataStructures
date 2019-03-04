@@ -48,6 +48,7 @@ public:
   void removeEnd(){//O(1)
     size--;
   }
+
   friend ostream& operator <<(ostream& s, const BadGrowArray& b){ //O(n)
     for(int i=0; i < b.size; i++)
       s << b.p[i] << ' ';

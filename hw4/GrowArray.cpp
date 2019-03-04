@@ -1,3 +1,14 @@
+/*  By: Nicholas DiMaria
+    I pledge my honor that I have abided by the Stevens Honor System.
+
+    Cite:
+    --Besnik Balaj: I was not in class so I was provided with the main grow array
+    code from class by him. Also we helped each other to understand what the
+    HW was specifically asking for.
+    --http://sandbox.mc.edu/~bennet/cs220/codeex/cl0_cc.html This website helped
+    me to write the Point class which I used to represent the points recieved
+    from the .dat document.
+*/
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -47,15 +58,15 @@ class GrowArray {
 		//}
 	public:
 		GrowArray():data(nullptr),len(0){}
-		void addEnd(Point v) {//O(len) 
+		void addEnd(Point v) {//O(len)
 			//if (len >= capacity)
 				//grow();
 			Point* old = data; //O(1)
 			data = new Point[len+1]; //O(1)
-			for(int i = 0; i<len;i++){ //O(len) 
+			for(int i = 0; i<len;i++){ //O(len)
 				data[i] = old[i];
 			}
-	
+
 			delete [] old;
 			data[len] = v;
 			len++;
@@ -95,7 +106,7 @@ class GrowArray {
 		uint32_t size() const {
 			return len;
 		}
-		
+
 		//same as before this allows us to use cout << GrowArray object
     friend ostream& operator <<(ostream& s, const GrowArray& b){ //O(n)
       for(int i=0; i < b.size(); i++)
@@ -173,20 +184,20 @@ int main() {
 	//create an array of points with the same amount of points we have in the file
 	Point points[length];
 
-	//here we are initializing the points to the correct x and y values 
+	//here we are initializing the points to the correct x and y values
 	//this uses that move function we talked about before
-	//really more of setter 
+	//really more of setter
 	for (int i =0; i < length; i++){
 		points[i].move(xValue[i], yValue[i]);
 	}
 
   infile.close();
-	
+
 	//calculate the appropriate X and Y perbox
 	double Xperbox = (double)(15)/(maxX-minX);
 	double Yperbox = (double)(15)/(maxY-minY);
 
-	//here a 16x16 array of grow arrays is created 
+	//here a 16x16 array of grow arrays is created
 	GrowArray box[16][16];
 	int i,j;
 	i=j=0;
@@ -201,6 +212,4 @@ int main() {
 		box[i][j].addEnd(points[q]);
 		cout << box[i][j] << endl;
 	}
-
-
 }
