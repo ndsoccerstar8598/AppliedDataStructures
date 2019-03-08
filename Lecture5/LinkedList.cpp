@@ -61,12 +61,19 @@ public:
       head = nullptr;
       return;
     }
+
     Node* p;
     Node* q;
-    for(p = head, q = p->next; q->next != nullptr; p=q, q=q->next)
-      ;
-    delete q;
-    p->next = nullptr;
+    //for(p = head, q = p->next; q->next != nullptr; p=q, q=q->next)
+      //;
+    //delete q;
+    //p->next = nullptr;
+    for (p = head; p->next!= nullptr;){
+      q=p;
+      p=p->next;
+    }
+    delete p;
+    q->next=nullptr;
   }
 
   void insert(int pos, int v) {//O(n)
@@ -103,11 +110,13 @@ int main(){
   for (int i = 0; i< 10; i++)
     a.addStart(i);
   cout << a;
-  LinkedList b = a; // 9876543210 copy constructor
-  b.addStart(19); // b should not change a as well
-  cout << a;
-  LinkedList c(a); // 9876543210 copy constructor
-  LinkedList d;
-  d.addStart(5);
-  d=c; //operator =
+  a.removeEnd();
+  cout << endl << a;
+  // LinkedList b = a; // 9876543210 copy constructor
+  // b.addStart(19); // b should not change a as well
+  // cout << a;
+  // LinkedList c(a); // 9876543210 copy constructor
+  // LinkedList d;
+  // d.addStart(5);
+  // d=c; //operator =
 }

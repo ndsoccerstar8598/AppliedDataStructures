@@ -83,7 +83,7 @@ public:
 
 void f(const DoubleLinkedList<int>& list){
   for(DoubleLinkedList<int>::ConstIterator i = list; i.hasNext(); i.next()) //O(n)
-    cout << i.getValue() << '\n';
+    cout << i.getValue() << ' ';
 }
 
 int main(){
@@ -91,11 +91,13 @@ int main(){
   for(int i=0; i <10;i++)
     list.addEnd(i);
   for(int i =0; i< list.size();i++)//O(n^2)
-    cout << list.get(i) << '\n'; //ineffiecent traversal
+    cout << list.get(i) << ' '; //ineffiecent traversal
+  cout << endl;
   f(list);
+  cout << endl;
   for(DoubleLinkedList<int>::Iterator i = list; i.hasNext(); i.next())
     i.getValue() *= 2;
   f(list);
-  cout << '\n';
+
 
 }
