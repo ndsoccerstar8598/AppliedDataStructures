@@ -60,7 +60,9 @@ public:
   void removeStart(){
     Node* temp = head;
     head = head ->next;
-    head -> prev = nullptr;
+    if(head != nullptr){
+      head -> prev = nullptr;
+    }
     delete temp;
   }
 
@@ -77,12 +79,8 @@ public:
   }
 
   void insert(int v, int pos){
-    if(pos==0){
-      addStart(v);
-      return;
-    }
     Node* p = head;
-    while (pos>1){
+    while (pos>0){
       pos--;
       p = p->next;
     }
@@ -92,8 +90,9 @@ public:
         temp->next->prev = temp;
     }
   }
+
   friend ostream& operator << (ostream& s, const DoubleLinkedList& list){
-    for (Node* p = list.head; p != nullptr; p = p->next)
+      for (Node* p = list.head; p != nullptr; p = p->next)
       s << p->val << ' ';
     return s;
   }
