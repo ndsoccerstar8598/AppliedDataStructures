@@ -98,6 +98,4 @@ int main(){
   for(DoubleLinkedList<int>::Iterator i = list; i.hasNext(); i.next())
     i.getValue() *= 2;
   f(list);
-
-
 }

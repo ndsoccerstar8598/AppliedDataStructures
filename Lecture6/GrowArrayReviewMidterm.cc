@@ -9,9 +9,10 @@ private:
     data = new int[capacity];
     for(int i =0; i < len; i++)
       data[i] = old[i];
+    delete[] old;
   }
 public:
-  GrowArray(int initialCapacity) : capacity(initialCapacity), len(0), data(new int[capacity]){}
+  GrowArray(int initialCapacity) : capacity(initialCapacity), len(0), data(new int[initialCapacity]){}
   GrowArray() : len(0), capacity(0), data(nullptr) {}
 
   void addStart(int v){//O(len)
@@ -20,6 +21,7 @@ public:
     for (int i = len-1; i >=0; i--)
       data[i+1] = data[i];
     data[0]=v;
+    len++;
   }
 
   void removeStart(){ //O(len)
