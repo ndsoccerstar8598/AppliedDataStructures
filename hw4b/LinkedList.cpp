@@ -110,7 +110,13 @@ public:
   };
 };
 
-template<typename T>
+//this is going to use ConstIterator to print out all the values in the LinkedList
+void f(const LinkedList& list){
+  for(LinkedList::ConstIterator i = list; i.hasNext(); i.next()) //O(n)
+    cout << i.getValue() << ',';
+}
+
+template<typename T> //we make this a template so that we can add strings to it
 class GrowArray{
 private:
   T* data;
@@ -168,11 +174,6 @@ public:
   }
 };
 
-void f(const LinkedList& list){
-  for(LinkedList::ConstIterator i = list; i.hasNext(); i.next()) //O(n)
-    cout << i.getValue() << ',';
-}
-
 int main(){
   LinkedList a;
   GrowArray<string> b;
@@ -199,34 +200,35 @@ int main(){
     string step = "";
     string end = "";
 
-    if (command == "ADD_FRONT"){
-      i++; //we now want the numbers we need to add to the LinkedList
-      string numbers = b.getValue(i);
-
+    if (command == "ADD_FRONT"){ //first we check if the command is add front
+      i++; //if it is we now want the numbers we need to add to the LinkedList
+      string numbers = b.getValue(i); // first we set whats in the grow array to a string called numbers
+                                      //should be something like 1:10:2 with start:step:end
       int j =0;
 
-      while(numbers.at(j)!= ':'){
-        start += numbers.at(j);
+      while(numbers.at(j)!= ':'){ //we iterate through the string until the first :
+        start += numbers.at(j);   //we start appending digits to a string called start
+        j++;                      //increment j everytime
+      }
+
+      j++;                        //since we found the first semi colon we increase our j again
+      while(numbers.at(j)!= ':'){ //now we increment until the second semi colon
+        step += numbers.at(j);    //we now append the digits to a string called step
         j++;
       }
 
       j++;
-      while(numbers.at(j)!= ':'){
-        step += numbers.at(j);
+      while(j<numbers.length()){ //now we increment j until the end of thstring
+        end += numbers.at(j);    //we append the digits to a string called end
         j++;
       }
 
-      j++;
-      while(j<numbers.length()){
-        end += numbers.at(j);
-        j++;
-      }
-
-      for(int k = stoi(start); k<=stoi(end); k+=stoi(step))
-        a.addFirst(k);
+      for(int k = stoi(start); k<=stoi(end); k+=stoi(step)) //now we are actually adding correct numbers to the LinkedList
+                                                            //we use stoi to current each of the strings to an integer
+        a.addFirst(k);                                      //we use add start because we need to do so
     }
 
-    else if (command == "ADD_BACK"){
+    else if (command == "ADD_BACK"){ //we do the same thing to get each of the digits for this
       i++; //we now want the numbers we need to add to the LinkedList
       string numbers = b.getValue(i);
 
@@ -249,22 +251,22 @@ int main(){
         j++;
       }
       for(int k = stoi(start); k<=stoi(end); k+=stoi(step))
-        a.addEnd(k);
+        a.addEnd(k); //here we are using add end
     }
     else if (command == "REMOVE_FRONT"){
       i++;
-      string numToDelete = b.getValue(i);
+      string numToDelete = b.getValue(i); //this gets the number of items to be deleted
       for(int k=0; k< stoi(numToDelete); k++)
         a.removeStart();
     }
     else if (command == "REMOVE_BACK"){
       i++;
-      string numToDelete = b.getValue(i);
+      string numToDelete = b.getValue(i); //this gets the number of items to be deleted
       for(int k=0; k< stoi(numToDelete); k++)
         a.removeEnd();
     }
-    else{
-      f(a);
+    else{ //if not any of the other commands we just want to output
+      f(a); //function f uses a ConstIterator to print out all the values in the LinkedList
       cout << endl;
     }
   }
