@@ -1,0 +1,209 @@
+Four kinds of hashing
+1. Linear hashing
+2. Quadratic Hashing (not too useful)
+3. Linear Chaining
+4. Perfect hashing
+
+Hash functions
+insert(88)
+Table transform key -> location f(x) <- x mod n  88 mod 20
+
+Linear Probing
+--If there is a collision, we go one to the right and insert the number there
+--At least 50% of your table should be empty at all times
+--Therefore your table should be twice the size then elements we need to enter
+--Wrap around if the last element collides
+
+0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19
+0  1  0  0  0  0  0  0  0  0   0   0   0  33  13  15  73   0   0   0
+
+Suppose we put in 1,15,33,13,73
+1 mod 20 -> 1
+15 mod 20 -> 15
+33 mod 20 -> 13
+13 mod 20 -> 13
+73 mod 20 -> 13
+
+Resolve collisions Linear Probing See Line 18
+
+0  1  2   3   4   5   6  7  8  9
+0  1  0  13  33  73  15  0  0  0  depending on the order we insert things will be in different places
+
+grow and reinsert
+0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19
+0  1  0  0  0  0  0  0  0  0   0   0   0  13  33  73  15   0   0   0
+
+
+add(k)
+  if 2*used >= capacity
+    grow()
+  pos <- hash(k)
+  while table[pos]!=empty
+    pos++
+    if pos >= table.length
+      pos = 0
+    end
+  end
+  used++
+  table[pos] <- k
+end
+
+find(k)
+  pos ← hash(k)
+	while table[pos] != EMPTY //this should be order 1 time, if not bad hash
+		if table[pos] == k
+			return true
+		end
+		pos++
+		if pos >= table.length
+			pos ← 0
+		end
+	end
+	return false
+end
+
+Birthday Paradox
+--Not possible to have no collisions
+--But want to make the average case as best as possible
+
+Hash pointers to integers
+-- 32 pointers will use memory bounds so that each pointer ends in 0,4,8,or C
+
+Hashing Strings
+--If use the values of the letters we will have many that wind up at the same position
+--So we can multiply each of the bits by 26 but then we wind up with very large numbers
+
+Quadratic Probing
+--Not very useful, as if we have a good hash function this will be unnecessary
+
+Linear Chaining
+--Go to method in c++
+
+null    null null null     null null
+      \                 /
+       9               5
+        \             /
+         1          null
+          \
+          null
+
+--should use a linkedlist with only a head, and insert at the front
+--this is due to locality as we usually want things that were recently put in
+
+//O(1) unless you have many elements in the same bin => want to keep 1 element in the bin on average
+LinearChaining.add(key)
+	pos ← hash(key)
+	p ← table[pos].head
+	while p != null
+		if p.key == key
+			replace the value
+			return
+		p = p.next
+	end
+	table[pos].addStart(key)
+end
+
+//again goal is to make the average size of the bin no more than 1
+LinearChaining.find(key)
+	pos ← hash(key)
+	p ← table[pos].head
+	while p != null
+		if p.key == key
+			return true
+		p = p.next
+	end
+	return false
+end
+
+Homework: How to count collisions
+--basically we need to test our hashing function to make sure it is actually good
+
+--Linear Probing
+0  1  21  0  0  0  0  0  10  20  30  0  0  0  0  0  0  0  0  19
+
+histogram (each bin represents # of collisions)
+
+count  3  3  1  0  0  0  0  0  0  0
+pos    0  1  2  3  4  5  6  7  8  9
+
+the last bin represents 9 OR MORE collisions
+
+--Linear Chaining
+collision counting is easier. At the end
+1. traverse every bin
+2. count how many in each bin
+3. Generate your histogram
+
+null    null null null     null null
+      \                 /
+       9               5
+        \             /
+         1          null
+          \
+          null
+
+count  6  1  2  0  0  0  0  0  0  0
+pos    0  1  2  3  4  5  6  7  8  9
+
+int n = 11
+int hist[10] = {0};
+
+if(n<hist.length)
+  hist[n]++;
+else
+  hist[9]++;
+
+at the end, print your histogram (only print nonzero bins):
+there are:
+100000  0
+50000   1
+10000   2
+
+Perfect Hashing
+--we will never find the perfect hash function (remember the Birthday paradox)
+--create a second hash table with a different hashing function
+--basically we will break down our larger data sets into smaller data sets that we can then hash easier
+
+Practice
+Check to see these in "Hashing Homework" document
+
+n=8, insert (1,9,15,27,31) using linear Probing
+31  1  9  27          15
+ 0  1  2   3  4  5  6  7
+
+Perfectly hash these numbers
+n=8, insert (3, 11, 21, 5)
+         3,11     21,5
+0  1  2   3    4   5   6  7
+          |        |
+         n=3      n=3
+          3       21
+
+          11       5
+
+Applications for Hashing
+1. Summarizing Something fast
+
+Big data (movie gigabytes)
+hash(file1) -> 0xFABC1092ABCEE791
+hash(file2) -> 0xFABC1092ABCEE791
+
+if the has is the same, not necessarily the same file, but very low chance that they are different files if has function is good
+
+Let's talk cryptography
+
+I write a document.
+I send it to you.
+How do you know the document you have is the one I wrote?
+
+"Digital Signature"
+
+sample document:
+hash("I am willing to you my house for $500000") = h1
+  Dov Kruger
+
+hash("I hereby give you my house! Enjoy!xq*") = h1 //add a couple bits to the end to make sure we get the same hashing Signature
+  Dov Kruger
+
+A cryptographic hash resists this attempt and > 128 bits or 256 bits
+Digital signature involves sending someone a document, and an encrypted 

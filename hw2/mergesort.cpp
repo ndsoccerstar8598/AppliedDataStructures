@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void merge(int x[], int low,int high, int mid){
+void merge(int x[], int low, int high, int mid){
     int i,j,k,c[50];
     i=low;
     k=low;

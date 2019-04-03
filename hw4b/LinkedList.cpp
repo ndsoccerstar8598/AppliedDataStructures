@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include<string.h>
+#include <string.h>
 using namespace std;
 
 class LinkedList{
