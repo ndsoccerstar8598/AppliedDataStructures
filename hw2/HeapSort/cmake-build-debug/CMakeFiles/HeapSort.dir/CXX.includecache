@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Users/ndsoc/Documents/Junior Year/AppliedDataStructures/hw2/HeapSort/main.cpp
+iostream
+-
+fstream
+-
+

@@ -148,13 +148,19 @@ int main(){
 
   infile.close();
   int count2 =0;
-  double times[10000] = {0};
+  double times[10] = {0};
   ofstream myfile;
 
   myfile.open ("times.txt");
-  for(int i=0; i<1000000; i+=100){
-
-    cout << "Time taken by function: " << knuthQuicksort(hello,length,i) << endl;
+  for(int i=0;i<10;i++){
+    QueryPerformanceCounter(&t1);
+    sleep(1);
+    QueryPerformanceCounter(&t2);
+    elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
+      cout << "Time taken by function: " << elapsedTime << endl;
+  }
+  for(int i=100; i<1100; i+=100){
+    //cout << "Time taken by function: " << knuthQuicksort(hello,length,i) << endl;
     //high_resolution_clock::time_point start = high_resolution_clock::now();
     QueryPerformanceCounter(&t1);
     knuthQuicksort(hello,length,i);
@@ -175,7 +181,7 @@ int main(){
   }
 
   cout << "Now im going to check which of these is the best" << endl;
-  cout << goldenMeanSearch(times,10000);
+  cout << goldenMeanSearch(times,10);
 
   //float seconds = (float)t / CLOCKS_PER_SEC;
 
