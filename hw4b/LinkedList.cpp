@@ -1,6 +1,16 @@
+/*
+  Nicholas DiMaria
+  I pledge my honor that I have abided by the Stevens Honor System.
+
+  Citations:
+  Besnik Balaj: Collaborated on what the use of the GrowArray was in this assignment
+  only to figure out that the GrowArray was seemingly removed from the assignment
+  description. Please see comment before the GrowArray object declaration in the main
+  method, to see why the GrowArray was still kept.
+*/
 #include <iostream>
 #include <fstream>
-#include<string.h>
+#include <string.h>
 using namespace std;
 
 class LinkedList{
@@ -111,6 +121,7 @@ public:
 };
 
 //this is going to use ConstIterator to print out all the values in the LinkedList
+//this is the same function that was used in class
 void f(const LinkedList& list){
   for(LinkedList::ConstIterator i = list; i.hasNext(); i.next()) //O(n)
     cout << i.getValue() << ',';
@@ -176,6 +187,11 @@ public:
 
 int main(){
   LinkedList a;
+  //I use a GrowArray here asd the original assignment seemeed to specify to use a GrowArray
+  //In any event this makes it easier to actually add all the commands to the GrowArray
+  //This is so because to use a regular array I would have had to find the length
+  //Of the file before initializing the array. Anyway the addEnd command of the GrowArray
+  //is still O(1). I simply used the GrowArray class as defined in class
   GrowArray<string> b;
 
   ifstream infile;

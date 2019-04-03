@@ -5,19 +5,20 @@ using namespace std;
 
 const double phi = (sqrt(5)+1)/2; //made this a double instead of an int
 
-int goldenMeanSearch(double data[], int n){
+int goldenMeanSearch(int data[], int n){
     int l=0, r =n-1;
-    int s = (r-l) / phi;
+    double s = (r-l) / phi;
     int x = r-s, y =l+s;
 
     while (x<y){
-        if(data[x] < data[y]){
+        cout << x << "," << y <<endl;
+        if(data[x] > data[y]){
             r=y;
             y=x;
             s=(r-l)/phi;
             x = r-s;
         }
-        else {
+        else{
             l = x;
             x = y;
             s = ceil((r - l) / phi); //made this a ceiling funciton
@@ -37,6 +38,6 @@ int goldenMeanSearch(double data[], int n){
 
 int main(){
     const int n=10;
-    double data[n] = {20.0009,20.0009,20.0008,20.0007,20.0006,20.0005,20.0006,20.0007,20.0008,20.0009};
+    int data[n] = {0,1,2,3,4,5,3,2,1,0};
     cout << goldenMeanSearch(data,n) << '\n';
 }

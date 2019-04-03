@@ -72,10 +72,16 @@ public:
       return;
     }
     Node* p; Node* q;
-    for(p=head, q=p->next; q-> next!= nullptr; p=q, q=q->next)
-      ;
-    delete q;
-    p->next = nullptr;
+    //for(p=head, q=p->next; q-> next!= nullptr; p=q, q=q->next)
+      //;
+    //delete q;
+    p=head;
+    while(p->next != nullptr){
+      q=p;
+      p=p->next;
+    }
+    delete p;
+    q->next = nullptr;
   }
 
   void insert(int v, int pos){
@@ -104,6 +110,4 @@ int main(){
   cout << a << endl;
   a.removeEnd();
   cout << a << endl;
-  a.insert(100,9);
-  cout << a;
 }

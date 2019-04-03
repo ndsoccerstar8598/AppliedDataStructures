@@ -28,9 +28,9 @@ void quicksort (int x[], int l, int r){
     int pivot =x[(rand() % (r-l))+l];
     while(i<=j){
       while(x[i]<pivot)
-      i++;
+        i++;
       while(x[j]>pivot)
-      j--;
+        j--;
       if(i<=j){
         int temp = x[i];
         x[i] = x[j];

@@ -4,7 +4,8 @@
 using namespace std;
 
 void merge(int x[], int low,int high, int mid){
-    int i,j,k,c[50];
+    int i,j,k;
+    int c[50]={0};
     i=low;
     k=low;
     j=mid+1;
