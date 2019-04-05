@@ -9,10 +9,11 @@
   --https://www.geeksforgeeks.org/double-pointer-pointer-pointer-c/: Helped me
   understand what double pointers are
   --http://cseweb.ucsd.edu/~kube/cls/100/Lectures/lec16/lec16-13.html: Some different
-  string hash functions.
-
+  string has functions. The first one was very basic but works well (according to
+  this website for arrays under length 100).
+  --http://www.azillionmonkeys.com/qed/hash.html: Hash function
   --Besnik Balaj: General Discussion of code
-  --Max Parisi: Helped me with the grow() function
+  --Max Parisi: Helped me with grow function
 */
 
 #include <iostream>
@@ -22,7 +23,6 @@
 
 using namespace std;
 
-//this is the hash function given in class
 #undef get16bits
 #if (defined(__GNUC__) && defined(__i386__)) || defined(__WATCOMC__) \
   || defined(_MSC_VER) || defined (__BORLANDC__) || defined (__TURBOC__)
@@ -79,7 +79,6 @@ uint32_t SuperFastHash (const char * data, int len) {
     return hash;
 }
 
-//this is a crappy hash function that I used to test my code at first
 int hashFunction(string word){
     int sum = 0;
     for (int i =0; i< word.length();i++){
@@ -88,16 +87,14 @@ int hashFunction(string word){
     return sum;
 }
 
-//we are first making a class called Node
 class Node{
 private:
-    int key; //this will represent the hashed value
-    string value; //this will represent the string held here
-    Node* next; //this should point to the next node
+    int key;
+    string value;
+    Node* next;
 public:
     Node(int k, string v): key(k), value(v), next(nullptr) {}
 
-    //getters for the key, value, and next Node
     int getKey(){
         return key;
     }
@@ -106,13 +103,12 @@ public:
         return value;
     }
 
-    Node *getNext(){
-        return next;
-    }
-
-    //setters for the value and next
     void setValue(string v){
         value = v;
+    }
+
+    Node *getNext(){
+        return next;
     }
 
     void setNext(Node *n){
@@ -120,26 +116,25 @@ public:
     }
 };
 
-//this is our class for the HashTable
+
 class HashTable{
 private:
-    Node **table; //start with a double pointer to the table
-    int *histogram = new int[10]; //this will count our intersections
-    int capacity; //this will count the overall size of the hashtable
-    int fullness; //this will represent how many spots in the hash table are full
-    bool readding; //this is a boolean that gets activated when we are readding the values to the hashTable in the grow function
+    Node **table;
+    int *histogram = new int[10];
+    int capacity;
+    int fullness;
+    bool readding;
     void grow(){
-        int len = capacity; //save the old capacity
-        readding = true; //we activate readding to make sure we don't count collisions and add to fullness
+        int len = capacity;
         capacity = capacity * 2 +1;
         Node** old;
         old = table;
         table = new Node*[capacity];
-        for(int i =0; i < capacity; i++) //initialize everything in the new table to nullptr
+        for(int i =0; i < capacity; i++)
             table[i] = nullptr;
-        for(int i=0; i<len;i++) { //now we need to readd everything to the new table
+        for(int i=0; i<len;i++) {
             Node *p, *q;
-
+            readding = true;
             p=old[i];
             while(p){
                 put(p -> getValue());
@@ -147,18 +142,18 @@ private:
                 delete p;
                 p=q;
             }
+            readding = false;
         }
-        readding = false;
         delete[] old;
     }
 public:
     HashTable(){
         capacity = 100;
         table = new Node*[capacity];
-        for(int i=0; i< capacity; i++){ //initialize table to nullptr
+        for(int i=0; i< capacity; i++){
             table[i] = nullptr;
         }
-        for(int i=0; i<10;i++) { //initialize histogram to 0
+        for(int i=0; i<10;i++) {
             histogram[i] = 0;
         }
         fullness =0;
@@ -166,28 +161,27 @@ public:
     }
 
     void put(string value){
-        uint32_t key = SuperFastHash(value.c_str(),value.length()); //get a hash value for the string
+        uint32_t key = SuperFastHash(value.c_str(),value.length());
         //int key = hashFunction(value);
         int count =0;
-        if(fullness * 2 >= capacity && !readding) { //if the number of words is greater than 1/2 of the capacity, grow
+        if(fullness * 1 >= capacity && !readding) {
             grow();
         }
-        int hash = (key % capacity); //take the key and mod the capacity of the table
-        if(table[hash] == nullptr){ //if that spot in the hash table is empty
+        int hash = (key % capacity);
+        if(table[hash] == nullptr){
             table[hash] = new Node(key, value);
-            if(!readding){ //only does this if we aren't readding
-              histogram[0]++;
-              fullness++;
-            }
+            fullness++;
+            if(!readding)
+                histogram[0]++;
         }
-        else{ //if the spot in the hash table isn't empty
+        else{
             Node* entry;
             entry = table[hash];
-            while(entry->getNext() != nullptr){ //loop to the end of the linear chain at this spot
+            while(entry->getNext() != nullptr){
                 count++;
                 entry = entry->getNext();
             }
-            if(!readding){ //check if we are in readding
+            if(!readding){
                 if(count < 9)
                     histogram[count]++;
                 else
@@ -201,20 +195,19 @@ public:
         uint32_t key = SuperFastHash(value.c_str(),value.length());
         //int key = hashFunction(value);
         int hash = (key % capacity);
-        if(table[hash] == nullptr) //automatically return false if there is nothing at this hash value
+        if(table[hash] == nullptr)
             return false;
-        else{ //we need to check the linear chain
+        else{
             Node *entry = table[hash];
             while(entry != nullptr && entry->getValue().compare(value)!=0)
                 entry = entry->getNext();
-            if(entry == nullptr) //return false if the word was not in this chain
+            if(entry == nullptr)
                 return false;
             else
                 return true;
         }
     }
 
-    //getter for the histogram array
     int* getHistogram(){
         return histogram;
     }
@@ -224,10 +217,6 @@ int main(){
     ifstream infile;
     HashTable a;
 
-<<<<<<< HEAD
-=======
-    //read in the dictionary
->>>>>>> 2439aa9e6c169dfa4e01168bae4fd2828fea1d24
     infile.open("dict.txt");
     if (!infile) {
         cout << "Unable to open file";
@@ -236,53 +225,9 @@ int main(){
 
     string s;
     while (infile >> s){
-        a.put(s); //put everything into the hash table. This is where the majority of the work happens
+        a.put(s);
     }
     infile.close();
-
-    //read in the hw8 file
-    infile.open("hw8.dat");
-    if (!infile) {
-        cout << "Unable to open file";
-        exit(1); // terminate with error
-    }
-
-    //count how many lines in hw8 file
-    int count =0;
-    while(infile >> s){
-        count++;
-    }
-    infile.close();
-
-
-    infile.open("hw8.dat");
-    string words[count];
-    count =0;
-    while(infile >> s){
-        if (s.find("'") == string::npos) { //ignoring words with '
-            for(int i=0; i<s.length();i++){
-              s[i]=tolower(s[i]); //convert everything in every string to a lower case letter
-            }
-            words[count]=s;
-            count++;
-        }
-    }
-    infile.close();
-
-    for(int i=0; i< count; i++){
-        if(a.check(words[i])){
-            cout << "true" << endl;
-        }
-        else
-            cout << "false" << endl;
-    }
-
-    int* histogram = new int[10];
-    histogram = a.getHistogram();
-
-    for(int i= 0; i<10;i++){
-        cout << i << " " << histogram[i] <<endl;
-    }
 
     infile.open("hw8.dat");
     if (!infile) {
@@ -309,16 +254,18 @@ int main(){
 
     for(int i=0; i< count; i++){
         if(a.check(words[i])){
+            //if(a.check(hashFunction(words[i]),words[i])){
             cout << "true" << endl;
         }
         else
             cout << "false" << endl;
     }
 
-    int* histogram = new int[100];
+    int* histogram = new int[10];
     histogram = a.getHistogram();
 
     for(int i= 0; i<10;i++){
         cout << i << " " << histogram[i] <<endl;
     }
+
 }
