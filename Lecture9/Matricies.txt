@@ -1,0 +1,82 @@
+  Lecture 10
+
+  Rectangular Matrix Representation
+  --row major: m[i* cols +j]
+
+  Sparse Polynomial
+  --Use this to represent polynomials that are sparse
+    -- c1x^5721 + c2x + c3
+
+  Matrix Operations
+  --Adding
+  --Multiplication O(n^3)
+    --Better Multiplication: Strassen Algorithm O(18n^2 + (7/8)n^3) = O(n^2.807)
+    --Even better method O(n^2.36)
+  --Solving System of linear equations
+
+  Lower/Upper Triangular Matrix
+  --O((n^2+n)/2)
+
+  Diagonal Matrix
+  --Makes matrix multiplication O(n)
+
+  TriDiagonal Matrix
+  --Index Rule
+    [i*3+(j-i)+1] => [i*2+j+1] => [i+2+j]
+
+  Lecture 11
+  Matrix Addition: O(mn), if m=n O(n^2)
+
+  Matrix Multiplication:
+  --dot product of 1 row and column = O(n)
+  --total complexity = O(mnp), if m=n=p O(n^3)
+
+    //rectangular Matrix
+    for k <- to m-1
+      for j <- 0 to p-1
+        //dot(row of 'a' with column of 'b')
+        dot <- 0
+        for i <- 0 to n-1
+          dot <- dot + a(k,i) + b(i,j)
+        c(k,j) <- dot
+      end
+    end
+
+  --Diagonal Matrix O(n)
+
+  2   0   0           1   0   0       2   0   0
+  0   3   0     *     0   2   0   =   0   6   0
+  0   0   -1          0   0   3       0   0   -3
+
+  --TriDiagonal Matrix O(3n)=O(n)
+
+  Solving System of Linear equations
+  --O(n^3+n^2)=O(n^3)
+  --Partial Pivoting
+    --Swap row with the greatest number to the top
+  --Full Pivoting
+    --Swap rows and columns
+    --Always want the biggest number to multiplied by the smallest number
+
+  HW:
+  --Receive 'A' nxn coefficient matrix and 'B'
+  --Use partial switch
+  --Okay if does not work for 10x10 Matrix
+  --Extra Credit:
+    --Create a program that creates test data
+    --Checks if ill conditioned
+      1. Checks if one row is all 0's
+      2. Checks if one column is all 0's
+      3. Checks if the equations are linearly independent
+
+  Newton-Raphson root finding
+    y=x^2-2
+    y'= 2x
+    x0 = 4
+    x(n+1) = x0 - (y(x0)/y'(x0))
+
+        x1 = 4 - 14/8 = 2.25
+        x2 = 1.569
+        x3 = 1.42189
+        x4 = 1.414234286
+        x5 = 1.414213563
