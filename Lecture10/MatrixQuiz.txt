@@ -1,0 +1,29 @@
+-Adding Matrix
+-Multiplying Matrix
+  m*n * n*p = m*p
+
+-Strassen Multiplying: be able to analyze time complexity of the algorithms given
+
+-Row Reduction: Be able to know how to write the loops
+  O(n^3)
+
+-LU Factorization
+
+-Inverse Matrix: A*A^-1=Identity Matrix
+
+-Gram Schmidt: Have to make sure vectors are orthogonal
+  O(n^3)
+
+-Least Squares: When the data is overdetermined: too many equations
+  O(n^2)
+  A^TAx=A^TB
+
+  mxn * nx1
+  Ax = O(mn)
+
+  A^T = O(mn)
+
+  nxm * mxn = nxn   O(nmn)=O(mn^2)
+
+  nxn * n
+  Ax = O(n^2)
