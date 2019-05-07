@@ -1,0 +1,100 @@
+--Naive Search
+  Searching for "XXXXXX" in
+  x x x x x a x o x o x a
+
+  x x x x x x
+    x x x x x
+      x x x x
+        x x x
+          x x
+            x
+
+--Boyer-Moore
+  Fastest String Search
+  The longer the string the better
+
+  target = "avalanche"
+  T h i s  i s  q u e s t i o n a b l e
+                e                 e
+
+  target = "avalanche"
+  T h i s  i s
+
+  create a table of 256 offset avalanche
+  initialize every element of the table to k = length of target string
+
+  go through whole list and put number of letters after it in target
+
+  a b c d e f g h i j k l m n o p q r s t u v w x y z
+  4 9 2 9 0 9 9 1 9 9 9 5 9 3 9 9 9 9 9 9 9 7 9 9 9 9
+
+  BoyerMoore(search, target)
+  for i =0 to 255
+    table[i]=k
+  for i =0 to k
+    table[target[i]] = k - i -1
+  i = k-1
+  while (i < n)
+    jump <- table[search[i]]
+    if(jump ==0){ //possible match
+      //compare the word letter by letter
+    }
+    i <- i + jump
+  end
+
+--FSM (Finite State Machine)
+  Fastest Pattern Search
+  Requires Setup
+
+--LCS (Longest Common Subsequence)
+
+  //first line
+  //xTom
+  public class A{
+    int x= 24*60*60;
+    print(x)
+  }
+
+  //Tom
+  public class A{
+    int x = 24*60*60;
+    print(x);
+  }
+
+  int lcs(const char * A, const char * B)
+  {
+    if(*A == '\0' || *B == '\0')return 0;
+    elseif (*A == *B) return 1 + lcs(A+1,B+1);
+    else return max(lcs(A+1,B),lcs(A,B+1));
+  }
+
+--Edit Distance
+  dont need to know this
+  operations insert, delete character, replace character
+
+  “”		“hello”		type “hello”
+  “test”		“”		delete t e s t
+  int editDist(const string& a, const string& b, int m, int n) {
+    // If first string is empty, the only option is to
+    // insert all characters of second string into first
+    if (m == 0) return n;
+
+    // If second string is empty, the only option is to
+    // remove all characters of first string
+    if (n == 0) return m;
+
+    // If last characters of two strings are same, nothing
+    // much to do. Ignore last characters and get count for
+    // remaining strings.
+    if (a[m-1] == b[n-1])
+        return editDist(a, b, m-1, n-1);
+
+    // If last characters are not same, consider all three
+    // operations on last character of first string, recursively
+    // compute minimum cost for all three operations and take
+    // minimum of three values.
+    return 1 + min ( editDist(str1,  str2, m, n-1),	// Insert
+                     editDist(str1,  str2, m-1, n),   // Remove
+                     editDist(str1,  str2, m-1, n-1) // Replace
+                   );
+  }
