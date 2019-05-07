@@ -38,7 +38,7 @@ class TriDiagonalMatrix{
 private:
   int n;
   double* m;
-  TriDiagonalMatrix(int n, double v): n(n), m(new double[3n-2]){//O(1)
+  TriDiagonalMatrix(int n): n(n), m(new double[3n-2]){//O(1)
   }
 public:
   TriDiagonalMatrix(int n, double v): n(n), m(new double[3n-2]){//O(3n)=O(n)

@@ -1,11 +1,3 @@
-/*
-  Nicholas DiMaria
-
-  I pledge my honor that I have abided by the Stevens Honor System.
-
-  Citations: https://www.youtube.com/watch?v=euIXYdyjlqo Helped me to understand h
-  how to solve equations of three variables using gaussian
-*/
 #include "Matrix.cc"
 
 int main() {
@@ -53,14 +45,26 @@ int main() {
 	 */
   ifstream f("hw5.dat");
   Matrix z = Matrix::read(f);
+  Matrix z2=z;
   cout << z << endl;
 
   vector<double> B = Matrix::read(z.getRows(), f);
+  vector<double> B2 = B;
   Matrix::print(B);
   cout << endl;
 
   vector<double> x = solve(z, B);
   cout <<endl;
-  cout << "Solution: ";
+  cout << "Solution (x y z...): ";
   Matrix::print(x);
+  cout << endl;
+
+  Matrix::print(B2);
+  cout << endl;
+
+  cout << z2;
+  vector<double> y = solveFull(z2,B2);
+  cout << endl;
+  cout << "Solution (x y z...): ";
+  Matrix::print(y);
 }

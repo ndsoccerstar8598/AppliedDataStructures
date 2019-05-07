@@ -9,29 +9,24 @@ private:
   double* m;
   Matrix(int r, int c) : rows(r), cols(c), m(new double[r*c]) {}
 public:
-  //constructor to fill Matrix with a certain value
   Matrix(int r, int c, double val) : rows(r), cols(c), m(new double[r*c]) {
     for (int i = 0; i < r*c; i++)
       m[i] = val;
   }
 
-  //destructor
   ~Matrix() {
     delete [] m; //O(1)
   }
 
-  //copy some matrix
   Matrix(const Matrix& orig) : rows(orig.rows), cols(orig.cols), m(new double[rows*cols]) {
     for (int i = 0; i < rows*cols; i++)
       m[i] = orig.m[i]; //O(r*c)
   }
 
-  //getter for the number of rows in a matrix
   int getRows(){
       return rows;
   }
 
-  //getter for the number of columns in a matrix
   int getCols(){
       return cols;
   }
@@ -45,7 +40,6 @@ public:
     return *this;
   }
 
-  //operator for m[i]
   double operator[](int i) const {
     return m[i];
   }
@@ -60,7 +54,6 @@ public:
   }
 
   //O(rows*cols) if they are the same O(n^2)
-  //Operator for matrix a + matrix b
   friend Matrix operator +(const Matrix& a, const Matrix& b) {
     if (a.rows != b.rows || a.cols != b.cols)
       throw "Bad matrix size";
@@ -70,15 +63,14 @@ public:
     return ans; //O(1)
   }
 
-  //operator for m(i,j)
   double  operator()(int i, int j) const {
     return m[i*cols+j];
   }
+
   double&  operator()(int i, int j) {
     return m[i*cols+j];
   }
 
-  //operator for matrix a * matrix b
   friend Matrix operator *(const Matrix& a, const Matrix& b) {
     if (a.cols != b.rows)
       throw "Bad matrix size";
@@ -93,7 +85,6 @@ public:
     return ans;
   }
 
-  //operator to prit out the some matrix in the form cout << matrix
   friend ostream& operator <<(ostream& s, const Matrix& b){ //O(n)
     for(int i = 0; i < b.rows; i++){
       for(int j = 0; j < b.cols; j++){
@@ -105,7 +96,6 @@ public:
     return s;
   }
 
-  //reads some file into a matrix
   static Matrix read(istream& s) {
     int n;
     s >> n;
@@ -116,7 +106,6 @@ public:
     return m;
   }
 
-  //reads some file into a matrix with a parameter for size
   static vector<double> read(int n, istream& s) {
       vector<double> B;
       B.reserve(n);
@@ -127,63 +116,109 @@ public:
       }
       return B;
   }
-
-  //used for solving
-  //this is the second method that is needed at the very end of solving
-  static vector<double> backSubstitute(Matrix& m, vector<double>& x, vector<double>& B) {
-      for (int n = m.rows; n > 0; n--) {
-          x[n-1] = B[n-1] / m(n-1,n-1);
-          for (int j = n-2; j >= 0; j--)
-              B[j] -= m(j,n-1) *x[n-1];
-      }
-      return x;
-  }
-
-  //uses partialPivot this is the first step in solving
-  static void partialPivot(Matrix& m, int i, vector<double>& B) {
-   int biggestPos = i;
-   double biggest = abs(m(i,i));
-   // partial pivoting
-   for (int j = i; j < m.rows; j++) {
-     if (abs(m(j,i)) > biggest) {
-        biggest = m(j,i);
-        biggestPos = j;
-     }
-   }
-   // swap rows biggestpos,i
-   for(int j=0; j< m.cols; j++){
-       swap(m(i,j),m(biggestPos,j));
-   }
-   swap(B[i],B[biggestPos]);
-  }
-
-  //method to solve
-  friend vector<double> solve(Matrix& m, vector<double>& B) {
-   vector<double> x;
-   // rows = cols or we are DEAD
-   x.reserve(m.rows);
-   //need to initialize the x vector
-   for(int i=0; i< m.rows;i++) {
-       x.push_back(0);
-   }
-   for (int i = 0; i < m.rows-1; i++) {
-     partialPivot(m, i, B);
-     for (int k = i+1; k < m.rows; k++) {
-         double s = -m(k, i) / m(i, i);
-         m(k,i) = 0; // make sure this is exactly zero!
-         for (int j = i + 1; j < m.cols; j++)
-             m(k, j) += s * m(i, j); // modify remaining part of row
-         B[k] += s * B[i];
-     }
-   }
-   return backSubstitute(m,x,B);
-  }
-
-  //used to print out the vectors
-  static void print(std::vector<double> const &input)
-  {
-    for (int i = 0; i < input.size(); i++) {
-        std::cout << input.at(i) << ' ';
+    static vector<double> backSubstitute(Matrix& m, vector<double>& x, vector<double>& B) {
+        for (int n = m.rows; n > 0; n--) {
+            x[n-1] = B[n-1] / m(n-1,n-1);
+            for (int j = n-2; j >= 0; j--)
+                B[j] -= m(j,n-1) *x[n-1];
+        }
+        return x;
     }
+
+    static vector<double> backSubstitute(Matrix& m, int pos, vector<double>& x, vector<double>& B) {
+        for (int n = m.rows; n > 0; n--) {
+            x[n-1] = B[n-1] / m(n-1,n-1);
+            for (int j = n-2; j >= 0; j--)
+                B[j] -= m(j,n-1) *x[n-1];
+        }
+        if(pos != 0){
+            swap(x[0],x[pos]);
+        }
+        return x;
+    }
+
+   static void partialPivot(Matrix& m, int i, vector<double>& B) {
+     int biggestPos = i;
+     double biggest = abs(m(i,i));
+     // partial pivoting
+     for (int j = i; j < m.rows; j++) {
+       if (abs(m(j,i)) > biggest) {
+	        biggest = m(j,i);
+	        biggestPos = j;
+       }
+     }
+     // swap rows biggestpos,i
+     for(int j=0; j< m.cols; j++){
+         swap(m(i,j),m(biggestPos,j));
+     }
+     swap(B[i],B[biggestPos]);
+   }
+
+   static int fullPivot(Matrix& m, vector<double>& B){
+      int biggestPosi =0;
+      int biggestPosj =0;
+      double biggest = abs(m(0,0));
+      for(int i =0; i < m.rows; i++){
+          for(int j=0; j < m.cols; j++){
+              if(abs(m(i,j)) > biggest){
+                  biggest = m(i,j);
+                  biggestPosi=i;
+                  biggestPosj=j;
+              }
+          }
+      }
+      if(biggestPosj != 0){
+          for(int i=0; i<m.rows; i++){
+              swap(m(i,0),m(i,biggestPosj));
+          }
+      }
+      return biggestPosj;
   }
+   friend vector<double> solve(Matrix& m, vector<double>& B) {
+     vector<double> x;
+     // rows = cols or we are DEAD
+     x.reserve(m.rows);
+     for(int i=0; i< m.rows;i++) {
+         x.push_back(0);
+     }
+     for (int i = 0; i < m.rows-1; i++) {
+       partialPivot(m, i, B);
+       for (int k = i+1; k < m.rows; k++) {
+           double s = -m(k, i) / m(i, i);
+           m(k,i) = 0; // make sure this is exactly zero!
+           for (int j = i + 1; j < m.cols; j++)
+               m(k, j) += s * m(i, j); // modify remaining part of row
+           B[k] += s * B[i];
+       }
+     }
+     return backSubstitute(m,x,B);
+   }
+
+    friend vector<double> solveFull(Matrix& m, vector<double>& B) {
+        vector<double> x;
+        // rows = cols or we are DEAD
+        x.reserve(m.rows);
+        for(int i=0; i< m.rows;i++) {
+            x.push_back(0);
+        }
+        int pos = fullPivot(m,B);
+        for (int i = 0; i < m.rows-1; i++) {
+            partialPivot(m, i, B);
+            for (int k = i+1; k < m.rows; k++) {
+                double s = -m(k, i) / m(i, i);
+                m(k,i) = 0; // make sure this is exactly zero!
+                for (int j = i + 1; j < m.cols; j++)
+                    m(k, j) += s * m(i, j); // modify remaining part of row
+                B[k] += s * B[i];
+            }
+        }
+        return backSubstitute(m,pos,x,B);
+    }
+
+   static void print(std::vector<double> const &input)
+   {
+      for (int i = 0; i < input.size(); i++) {
+          std::cout << input.at(i) << ' ';
+      }
+   }
 };
