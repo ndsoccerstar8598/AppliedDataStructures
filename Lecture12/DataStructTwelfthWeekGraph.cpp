@@ -108,6 +108,7 @@ Graph Theory
 				But current location costs you zero
 				Need two arrays to know how, array 1 holds cost and array 2 holds where did you come From
 				O(2V) storage = O(V) time = O(VE) or O(V^2)
+        Worst Case is V^3
 
 				BellmanFord(start, end) //can give either a do it question or a code
 				cost <- [inf,inf...]
@@ -115,16 +116,16 @@ Graph Theory
 				for v=0 to V-1
 					for each edge e from v
 						if cost[v2]>cost[v] + adjacent[v2]
-
-						LOOK BACK FOR THIS
+              cost[v2] <- cost[v]+adjacent[v2]
+            end
 
 
 				Floyd Wallshal? //will not give a Floyd to do as matrix but just compute
 					dist <-|V| x |V| arrau of minimum distance initalized to inf
 					for each vertex v
 						dist[v][v] <- 0
-					for each edge
-						//some shit happens
+					for each edge (u,v)
+            dist[u][v] <- w(u,v)
 
 					for k from 1 to |v|
 						for i from 1 to |V|
@@ -136,10 +137,28 @@ Graph Theory
 						end
 					end
 
+          FloyedWallshalReconstruction
+          dist <-|V| x |V| arrau of minimum distance initalized to inf
+          for each vertex v
+            dist[v][v] <- 0
+          for each edge
+            dist[u][v] <- w(u,v)
+            next[u][v]<- v
+
+          for k from 1 to |v|
+            for i from 1 to |V|
+              for j from 1 to |v|
+                if dist[i][j] > dist[i][k] + dist[k][j]
+                  dist[i][j] <- dist[i][k] + dist[k][j]
+                  next[i][j] <- next [i][k]
+                end
+              end
+            end
+          end
 
 
 				Minimum Spanning Tree
-					How do you onnect things via minimum cost
+					How do you connect things via minimum cost
 					This a greedy algorithm, can start with anyone you like
 
 					Prim

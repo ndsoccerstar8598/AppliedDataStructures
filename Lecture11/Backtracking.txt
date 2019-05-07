@@ -1,0 +1,5 @@
+know swap, generate, swap and heap 
+
+--Magic Squares
+  Every row, column and diagonal must sum to the same
+  n^2! (n squared factorial)
