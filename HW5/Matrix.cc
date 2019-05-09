@@ -88,7 +88,7 @@ public:
 	       double dot = 0;
 	       for (int k = 0; k < a.cols; k++)
 	        dot += a(i, k) * b(k, j);
-	         ans(i,j) = dot;
+	       ans(i,j) = dot;
       }
     return ans;
   }

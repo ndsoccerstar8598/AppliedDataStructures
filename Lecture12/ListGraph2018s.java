@@ -45,11 +45,11 @@ public class ListGraph2018s{
     boolean[] visited = new boolean[vertices.length];
     dfs(v,visited);
   }
-  
+
   private final void dfs(int v, boolean[] visited){
     System.out.print(v + " ");
     visited[v] = true;
-    for (int i = 0; i < vertices[v].size(); i++){
+    for (int i =x 0; i < vertices[v].size(); i++){
       Edge e = vertices[v].get(i);
       if(!visited[e.to])
         dfs(e.to, visited);

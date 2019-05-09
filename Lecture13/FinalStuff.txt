@@ -1,0 +1,29 @@
+Hashing
+  hash functions (know what makes a good one, uniformly smear values)
+  linear probing
+  quadratic probing*
+  linear chaining
+  perfect Hashing
+
+Matrices
+  representation (rectangular, diagonal, tridiagonal)
+  solving systems (Gauss-Jordan Elimination, partial pivoting)
+  addition
+  multiplication
+  Gram-Schmidt orthogonalization
+
+Strings
+  Boyer-Moore
+  Finite State
+  Longest Common Substring
+
+Graphs
+  representation: list or matrix
+  DFS
+  BFS
+  IsConnected
+  Bellman-Ford
+  Prim
+  Kruskal
+
+  TSP* (Possible Extra Credit)
