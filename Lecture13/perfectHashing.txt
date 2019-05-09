@@ -1,0 +1,6 @@
+--Hashing twice
+--Allows you to use much simpler hash functions
+--Want it to be O(2) time
+
+--Use simple has function of x mod n for the first time
+--Then we deal with collisions at a bin, by finding a hash function where no elements in the bin collide
